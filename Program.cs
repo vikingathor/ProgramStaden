@@ -6,6 +6,7 @@
         {
             Console.WriteLine("Hello, World!");
             Console.WriteLine("Tjena Kompisar ");
+            Console.WriteLine();
         }
     }
 }
