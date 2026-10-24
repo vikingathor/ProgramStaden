@@ -1,4 +1,6 @@
-﻿namespace ProgramStaden
+﻿using Microsoft.VisualBasic;
+
+namespace ProgramStaden
 {
     internal class Program
     {
