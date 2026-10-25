@@ -4,9 +4,9 @@ namespace ProgramStaden
 {
     internal class Program
     {
-            internal class Personer
+            internal class Personer //En bass klass 
             {
-                public List<string> Names { get; set; }
+                public List<string> Names = File.ReadAllLines("Names.txt").ToList();
                 public string Name { get; set; } //Lista med 20 namn som är unika för varje medborjare 
 
                 public int Posx { get; set; }
@@ -16,6 +16,7 @@ namespace ProgramStaden
 
                 public Personer()
                 {
+                    
                     Name = Names[Random.Shared.Next(0, Names.Count)];  //Hur vet den vilket namn som underklassen ska ha ? 
                     Posx = Random.Shared.Next(0, 100);
                     PosY = Random.Shared.Next(0, 25);
@@ -25,17 +26,17 @@ namespace ProgramStaden
             }
         public class Medborgare : Personer
         {
-            public List<string> Inventory {  get; set; }
+            public List<string> Inventory {  get; set; } 
             public Medborgare() : base()
             {
-                Inventory = new List<string>
+                Inventory = new List<string> //En ny egenskap för underklassen som innehåller sakerna i inventoryt 
                 {
                     "Nycklar",
                     "Mobiltelefon",
                     "Pengar",
                     "Klocka",
                 };
-                Type = 'M';
+                Type = 'M'; //Ändrar typen endast för denna klass 
 
             }
         }
@@ -67,7 +68,8 @@ namespace ProgramStaden
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("Tjena världe");
+            Staden staden = new Staden();
+            staden.City();
         }
     }
 }
