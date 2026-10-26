@@ -10,7 +10,7 @@ namespace ProgramStaden
     {
         public List<Program.Personer> personer { get; set; }
 
-        public void City()
+        public List<Program.Personer> City()
         {
             personer = new List<Program.Personer>(); //EN ny lista med objekten från personer
 
@@ -27,7 +27,7 @@ namespace ProgramStaden
                 personer.Add(new Program.Tjuv());
             }
             
-            
+            return personer;
             
         }
 
