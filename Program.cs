@@ -6,25 +6,24 @@ namespace ProgramStaden
     {
             internal class Personer //En bass klass 
             {
-                public List<string> Names = File.ReadAllLines("Names.txt").ToList();
-                public string Name { get; set; } //Lista med 20 namn som är unika för varje medborjare 
+                public List<string> Names = File.ReadAllLines("Names.txt").ToList(); //Läser namnen från en txt fil och och lägger dem i en string list = Names 
+                public string Name { get; set; } //Egenskap som tilldelar namn till Medborgare, Polis och Tjuv 
+                public int Posx { get; set; } // Egenskape som anger positionen på x = Kolumnerna 
+                public int PosY { get; set; } //Egenskap som anger positionen på Y = Raderna 
+                public char Type { get; set; } // Egenskap som anger vilken symbol som ska visas i staden 
+                public int Where { get; set; } //Egenskap som anger vilken riktining personen går mot 
 
-                public int Posx { get; set; }
-                public int PosY { get; set; }
-                public char Type { get; set; }
-                public int Where { get; set; }
-
-                public Personer()
+                public Personer() //Konstruktor för huvudklassen 
                 {
                     
                     Name = Names[Random.Shared.Next(0, Names.Count)];  //Hur vet den vilket namn som underklassen ska ha ? 
-                    Posx = Random.Shared.Next(0, 100);
-                    PosY = Random.Shared.Next(0, 25);
-                    Type = 'U';
-                    Where = Random.Shared.Next(0, 9);
+                    Posx = Random.Shared.Next(0, 100); //Random position  x ledet 
+                    PosY = Random.Shared.Next(0, 25); //Random postion y ledet 
+                    Type = 'U'; //Vilken typ objektet är kommer överskridas vid utskriften 
+                    Where = Random.Shared.Next(0, 9); //Ger dem en Random riktning 
                 }
             }
-        public class Medborgare : Personer
+        public class Medborgare : Personer 
         {
             public List<string> Inventory {  get; set; } 
             public Medborgare() : base()
