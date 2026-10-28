@@ -37,53 +37,69 @@ namespace ProgramStaden
                 
             }
 
-            foreach (var person in personer)
-            {
-                switch (person.Where)
-                {
-                    case 0: //Upp
-                        person.PosY--;
-                        break;
-                        
-                    case 1: //Upp höger 
-                        person.PosY--;
-                        person.Posx++;
-                        break;
-
-                    case 2: //Höger
-                        person.Posx++;
-                        break;
-
-                    case 3: //Ner höger 
-                        person.PosY++;
-                        person.Posx++;
-                        break;
-
-                    case 4: //Ner 
-                        person.PosY++;
-                        break;
-
-                    case 5: //Ner vänster 
-                        person.PosY++;
-                        person.Posx--;
-                        break;
-
-                    case 6: //Vänster
-                        person.Posx--;
-                        break;
-
-                    case 7: //Upp vänster 
-                        person.PosY--;
-                        person.Posx--;
-                        break;
-                }
-            }
+           
 
             while (true )
             {
-                
                 Thread.Sleep(1000);
                 Console.Clear();
+                foreach (var person in personer)
+                {
+                    switch (person.Where)
+                    {
+                        case 0: //Upp
+                            person.PosY--;
+                            break;
+
+                        case 1: //Upp höger 
+                            person.PosY--;
+                            person.Posx++;
+                            break;
+
+                        case 2: //Höger
+                            person.Posx++;
+                            break;
+
+                        case 3: //Ner höger 
+                            person.PosY++;
+                            person.Posx++;
+                            break;
+
+                        case 4: //Ner 
+                            person.PosY++;
+                            break;
+
+                        case 5: //Ner vänster 
+                            person.PosY++;
+                            person.Posx--;
+                            break;
+
+                        case 6: //Vänster
+                            person.Posx--;
+                            break;
+
+                        case 7: //Upp vänster 
+                            person.PosY--;
+                            person.Posx--;
+                            break;
+
+                            
+                    }
+                }
+                for (int y = 0; y < 25;  y++)
+                {
+                    for (int x = 0; x < 100; x++)
+                    {
+                        Karta[y, x] = ',';
+                    }
+                }
+
+                foreach (var person in personer)
+                {
+                    if (person.PosY >= 0 && person.PosY < 25 &&
+                        person.Posx >= 0 && person.Posx < 100)
+                    { Karta[person.PosY, person.Posx] = person.Type; }
+                }
                 
                 for (int y = 0; y < 25; y++) // Skriver ut objektens symboler på positionerna angivna i egenskaperna 
                 {
@@ -91,7 +107,7 @@ namespace ProgramStaden
                     for (int x = 0; x < 100; x++)
                     {
                         Console.Write(Karta[y, x]); //Utskrift 
-
+                        
                         
                     }
                     Console.WriteLine();
