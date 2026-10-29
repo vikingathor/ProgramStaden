@@ -67,9 +67,21 @@ namespace ProgramStaden
         }
         static void Main(string[] args)
         {
+            
+            List<Prison> Prison = new List<Prison>();
             StadenSimulering simulation = new StadenSimulering();
             Staden staden = new Staden();
             List<Program.Personer> personers = staden.City();
+
+
+            while(true)
+            {
+
+                Console.Clear();
+                ArrestSimulering.FindTheThiv(personers, Prison);
+
+            }
+
         }
     }
 }
