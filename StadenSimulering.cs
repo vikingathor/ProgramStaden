@@ -9,14 +9,16 @@ namespace ProgramStaden
        
         char[,] Karta = new char[25, 100]; //En matris med 25 rader och 100 kolumner 
         Staden staden = new Staden(); //Objekt av staden ger oss åtkomst
+
+
         public void Simulera()
         {
-            
-            
-            List<Program.Personer> personer =  staden.City(); //Hämtar listan med objekt från klassen staden
 
-           
-            
+            List<Program.Personer> personer = staden.City(); //Hämtar listan med objekt från klassen staden
+
+
+
+
             for (int y  = 0; y < 25; y++) 
             {
                 

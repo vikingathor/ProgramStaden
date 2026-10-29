@@ -68,7 +68,8 @@ namespace ProgramStaden
         static void Main(string[] args)
         {
             StadenSimulering simulation = new StadenSimulering();
-            simulation.Simulera();
+            Staden staden = new Staden();
+            List<Program.Personer> personers = staden.City();
         }
     }
 }
