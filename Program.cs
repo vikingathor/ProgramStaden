@@ -69,6 +69,7 @@ namespace ProgramStaden
         {
             StadenSimulering simulation = new StadenSimulering();
             simulation.Simulera();
+            Console.WriteLine("hej");
         }
     }
 }
