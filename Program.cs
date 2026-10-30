@@ -72,7 +72,7 @@ namespace ProgramStaden
             StadenSimulering simulation = new StadenSimulering();
             Staden staden = new Staden();
             List<Program.Personer> personers = staden.City();
-
+            simulation.Simulera();
 
             while(true)
             {
