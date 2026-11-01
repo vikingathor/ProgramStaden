@@ -19,7 +19,8 @@ namespace ProgramStaden
                             if(T.Posx == P.Posx && T.PosY == P.PosY)
                             {
                                 ((Program.Polis)P).Inventory.AddRange(((Program.Tjuv)T).Inventory);
-                                prison.Add(new Prison(T.Name));
+                                int StraffTid = ((Program.Tjuv)T).Inventory.Count * 10;
+                                prison.Add(new Prison(T.Name ,  StraffTid));
                                 personers.Remove(T); 
                             }
                         }
