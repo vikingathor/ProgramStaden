@@ -79,6 +79,7 @@ namespace ProgramStaden
 
                 Console.Clear();
                 ArrestSimulering.FindTheThiv(personers, Prison);
+                ReleasedSimulering.Released(Prison, personers);
 
             }
 
