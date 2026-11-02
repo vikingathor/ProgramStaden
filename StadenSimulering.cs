@@ -39,12 +39,37 @@ namespace ProgramStaden
                 
             }
 
-           
 
+            string Meddelande = "";
             while (true )
             {
                 Thread.Sleep(1000);
                 Console.Clear();
+
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo tangenten = Console.ReadKey(true);
+
+                    if (tangenten.Key == ConsoleKey.P)
+                    {
+                        personer.Add(new Program.Polis());
+                        Meddelande = "En polis har kommit till staden ";
+                    }
+
+                    else if (tangenten.Key == ConsoleKey.T)
+                    {
+                        personer.Add(new Program.Tjuv());
+                        Meddelande = "En tjuv har kommit till staden ";
+                    }
+
+                    else if (tangenten.Key == ConsoleKey.M)
+
+                    {
+                        personer.Add(new Program.Medborgare());
+                        Meddelande = "En ny medborgare har flyttat in i staden";
+                    }
+                }
+                
                 foreach (var person in personer)
                 {
                     switch (person.Where)
@@ -84,9 +109,15 @@ namespace ProgramStaden
                             person.PosY--;
                             person.Posx--;
                             break;
-
-                            
                     }
+                    if (person.Posx >= 100)
+                        person.Posx = 0;
+                    if (person.Posx < 0)
+                        person.Posx = 99;
+                    if (person.PosY >= 25)
+                        person.PosY = 0;
+                    if (person.PosY < 0)
+                        person.PosY = 24;
                 }
                 for (int y = 0; y < 25;  y++)
                 {
@@ -112,10 +143,14 @@ namespace ProgramStaden
                         
                         
                     }
-                    Console.WriteLine();
                     
+                    Console.WriteLine();
+
                 }
-               
+                Console.WriteLine();
+                Console.WriteLine(Meddelande);
+
+
             }
 
 

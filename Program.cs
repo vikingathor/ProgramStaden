@@ -40,7 +40,7 @@ namespace ProgramStaden
             }
         }
 
-        public class Polis : Personer
+        public class Polis : Program.Personer
         {
             public List<string> Inventory { get; set; }
             public Polis() : base()
