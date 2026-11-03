@@ -72,12 +72,17 @@ namespace ProgramStaden
             StadenSimulering simulation = new StadenSimulering();
             Staden staden = new Staden();
             List<Program.Personer> personers = staden.City();
-            simulation.Simulera();
+            
 
             while(true)
             {
-
+                Thread.Sleep(1000);
                 Console.Clear();
+
+                simulation.Uppdate(personers);
+                simulation.LäggTillPersoner(personers);
+                simulation.Utskrift();
+
                 ArrestSimulering.FindTheThiv(personers, Prison);
 
             }
