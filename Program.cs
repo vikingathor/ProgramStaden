@@ -84,6 +84,7 @@ namespace ProgramStaden
                 simulation.Utskrift();
 
                 ArrestSimulering.FindTheThiv(personers, Prison);
+                ReleasedSimulering.Released(Prison, personers);
 
             }
 
