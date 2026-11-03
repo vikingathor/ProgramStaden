@@ -40,7 +40,7 @@ namespace ProgramStaden
             }
         }
 
-        public class Polis : Personer
+        public class Polis : Program.Personer
         {
             public List<string> Inventory { get; set; }
             public Polis() : base()
@@ -67,9 +67,27 @@ namespace ProgramStaden
         }
         static void Main(string[] args)
         {
+            
+            List<Prison> Prison = new List<Prison>();
             StadenSimulering simulation = new StadenSimulering();
             Staden staden = new Staden();
             List<Program.Personer> personers = staden.City();
+            
+
+            while(true)
+            {
+                Thread.Sleep(1000);
+                Console.Clear();
+
+                simulation.Uppdate(personers);
+                simulation.LäggTillPersoner(personers);
+                simulation.Utskrift();
+
+                ArrestSimulering.FindTheThiv(personers, Prison);
+                ReleasedSimulering.Released(Prison, personers);
+
+            }
+
         }
     }
 }

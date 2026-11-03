@@ -1,131 +1,152 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using static ProgramStaden.Program;
 
 namespace ProgramStaden
 {
-    public class StadenSimulering
+    internal class StadenSimulering
     {
        
         char[,] Karta = new char[25, 100]; //En matris med 25 rader och 100 kolumner 
-        Staden staden = new Staden(); //Objekt av staden ger oss åtkomst
+        
 
-
-        public void Simulera()
+        public string Meddelande {  get; set; }
+        public void FyllerStaden(List<Program.Personer> personers)
         {
 
-            List<Program.Personer> personer = staden.City(); //Hämtar listan med objekt från klassen staden
-
-
-
-
-            for (int y  = 0; y < 25; y++) 
+            for (int y = 0; y < 25; y++)
             {
-                
-                for (int x = 0;  x < 100; x++)
+
+                for (int x = 0; x < 100; x++)
                 {
                     Karta[y, x] = ','; //Fyller matrisen med tecknet , så vi får 100 kolumner fyllda 
-                    
+
                 }
             }
 
-            foreach (var person in personer) //Fyller matrisen med person objekten 
+            foreach (var personer in personers)
             {
-                if (Karta[person.PosY, person.Posx] == ',')
+                if (personer.PosY >= 0 && personer.PosY < 25 &&
+                    personer.Posx >= 0 && personer.Posx < 100)
                 {
-                    Karta[person.PosY, person.Posx] = person.Type; // Överskrider tecknet med symbolen för just det objektet 
-                    
-                } // Om Positionen där objektet ska skrivas ut är täckt med en , symbol överskrids den 
-                
+                    if (Karta[personer.PosY, personer.Posx] == ',')
+                    {
+                        Karta[personer.PosY, personer.Posx] = personer.Type;
+                    }
+                }
             }
 
-           
+        }
 
-            while (true )
+        public void LäggTillPersoner(List<Program.Personer> personers)
+        {
+            if (Console.KeyAvailable)
             {
-                Thread.Sleep(1000);
-                Console.Clear();
-                foreach (var person in personer)
+                ConsoleKeyInfo Knapp = Console.ReadKey(true);
+
+                if (Knapp.Key == ConsoleKey.T)
                 {
-                    switch (person.Where)
-                    {
-                        case 0: //Upp
-                            person.PosY--;
-                            break;
-
-                        case 1: //Upp höger 
-                            person.PosY--;
-                            person.Posx++;
-                            break;
-
-                        case 2: //Höger
-                            person.Posx++;
-                            break;
-
-                        case 3: //Ner höger 
-                            person.PosY++;
-                            person.Posx++;
-                            break;
-
-                        case 4: //Ner 
-                            person.PosY++;
-                            break;
-
-                        case 5: //Ner vänster 
-                            person.PosY++;
-                            person.Posx--;
-                            break;
-
-                        case 6: //Vänster
-                            person.Posx--;
-                            break;
-
-                        case 7: //Upp vänster 
-                            person.PosY--;
-                            person.Posx--;
-                            break;
-
-                            
-                    }
+                    personers.Add(new Tjuv());
+                    Meddelande = "En Tjuv har kommit till staden ";
                 }
-                for (int y = 0; y < 25;  y++)
+                else if (Knapp.Key == ConsoleKey.P)
                 {
-                    for (int x = 0; x < 100; x++)
-                    {
-                        Karta[y, x] = ',';
-                    }
+                    personers.Add(new Polis());
+                    Meddelande = "En ny polis har kommit till staden";
                 }
+                else if (Knapp.Key == ConsoleKey.M)
+                {
+                    personers.Add(new Medborgare());
+                    Meddelande = "En ny medborgare har flyttat in";
+                }
+            }
+           
+        }
 
-                foreach (var person in personer)
+        public void FlyttaPersoner(List<Program.Personer> personers)
+        {
+            foreach (var person in personers)
+            {
+                switch (person.Where)
                 {
-                    if (person.PosY >= 0 && person.PosY < 25 &&
-                        person.Posx >= 0 && person.Posx < 100)
-                    { Karta[person.PosY, person.Posx] = person.Type; }
+                    case 0: //Upp
+                        person.PosY--;
+                        break;
+
+                    case 1: //Upp höger 
+                        person.PosY--;
+                        person.Posx++;
+                        break;
+
+                    case 2: //Höger
+                        person.Posx++;
+                        break;
+
+                    case 3: //Ner höger 
+                        person.PosY++;
+                        person.Posx++;
+                        break;
+
+                    case 4: //Ner 
+                        person.PosY++;
+                        break;
+
+                    case 5: //Ner vänster 
+                        person.PosY++;
+                        person.Posx--;
+                        break;
+
+                    case 6: //Vänster
+                        person.Posx--;
+                        break;
+
+                    case 7: //Upp vänster 
+                        person.PosY--;
+                        person.Posx--;
+                        break;
                 }
-                
-                for (int y = 0; y < 25; y++) // Skriver ut objektens symboler på positionerna angivna i egenskaperna 
+                KonstrolleraPositioner(person);
+            }
+        }
+
+        public void KonstrolleraPositioner(Program.Personer person) 
+        {
+            if (person.Posx >= 100)
+                person.Posx = 0;
+
+            if (person.Posx < 0)
+                person.Posx = 99;
+
+            if (person.PosY >= 25)
+                person.PosY = 0;
+
+            if (person.PosY < 0)
+                person.PosY = 24;
+        }
+          public void Uppdate (List<Program.Personer> persons)
+        {
+            FlyttaPersoner(persons);
+            FyllerStaden(persons);
+        }
+
+        public void Utskrift ()
+        {
+            for (int y = 0; y < 25; y++)
+            {
+                for (int x = 0; x < 100; x++)
                 {
-                    
-                    for (int x = 0; x < 100; x++)
-                    {
-                        Console.Write(Karta[y, x]); //Utskrift 
-                        
-                        
-                    }
-                    Console.WriteLine();
-                    
+                    Console.Write(Karta[y, x]);
                 }
-               
+                Console.WriteLine();
             }
 
-
-           
-
-
-
+            Console.WriteLine();
+            Console.WriteLine(Meddelande);
+        }
         }
         
         
     }
-    
-}
