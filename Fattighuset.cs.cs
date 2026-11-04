@@ -153,5 +153,10 @@ namespace ProgramStaden
             Console.WriteLine(
                 "Antal personer i Fattighuset: " + fattighus.Count);
         }
+        public static void Simulera(List<Fattighuset> fattighus)
+        {
+            Uppdatera(fattighus);
+            Utskrift(fattighus);
+        }
     }
 }

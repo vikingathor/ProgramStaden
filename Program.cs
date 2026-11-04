@@ -5,28 +5,28 @@ namespace ProgramStaden
 {
     internal class Program
     {
-            internal class Personer //En bass klass 
-            {
-                public List<string> Names = File.ReadAllLines("Names.txt").ToList(); //Läser namnen från en txt fil och och lägger dem i en string list = Names 
-                public string Name { get; set; } //Egenskap som tilldelar namn till Medborgare, Polis och Tjuv 
-                public int Posx { get; set; } // Egenskape som anger positionen på x = Kolumnerna 
-                public int PosY { get; set; } //Egenskap som anger positionen på Y = Raderna 
-                public char Type { get; set; } // Egenskap som anger vilken symbol som ska visas i staden 
-                public int Where { get; set; } //Egenskap som anger vilken riktining personen går mot 
-
-                public Personer() //Konstruktor för huvudklassen 
-                {
-                    
-                    Name = Names[Random.Shared.Next(0, Names.Count)];  //Hur vet den vilket namn som underklassen ska ha ? 
-                    Posx = Random.Shared.Next(0, 100); //Random position  x ledet 
-                    PosY = Random.Shared.Next(0, 25); //Random postion y ledet 
-                    Type = 'U'; //Vilken typ objektet är kommer överskridas vid utskriften 
-                    Where = Random.Shared.Next(0, 9); //Ger dem en Random riktning 
-                }
-            }
-        public class Medborgare : Personer 
+        internal class Personer //En bass klass 
         {
-            public List<string> Inventory {  get; set; } 
+            public List<string> Names = File.ReadAllLines("Names.txt").ToList(); //Läser namnen från en txt fil och och lägger dem i en string list = Names 
+            public string Name { get; set; } //Egenskap som tilldelar namn till Medborgare, Polis och Tjuv 
+            public int Posx { get; set; } // Egenskape som anger positionen på x = Kolumnerna 
+            public int PosY { get; set; } //Egenskap som anger positionen på Y = Raderna 
+            public char Type { get; set; } // Egenskap som anger vilken symbol som ska visas i staden 
+            public int Where { get; set; } //Egenskap som anger vilken riktining personen går mot 
+
+            public Personer() //Konstruktor för huvudklassen 
+            {
+
+                Name = Names[Random.Shared.Next(0, Names.Count)];  //Hur vet den vilket namn som underklassen ska ha ? 
+                Posx = Random.Shared.Next(0, 100); //Random position  x ledet 
+                PosY = Random.Shared.Next(0, 25); //Random postion y ledet 
+                Type = 'U'; //Vilken typ objektet är kommer överskridas vid utskriften 
+                Where = Random.Shared.Next(0, 9); //Ger dem en Random riktning 
+            }
+        }
+        public class Medborgare : Personer
+        {
+            public List<string> Inventory { get; set; }
             public Medborgare() : base()
             {
                 Inventory = new List<string> //En ny egenskap för underklassen som innehåller sakerna i inventoryt 
@@ -57,7 +57,7 @@ namespace ProgramStaden
         public class Tjuv : Personer
         {
             public List<string> Inventory { get; set; }
-            public Tjuv () : base()
+            public Tjuv() : base()
             {
                 Inventory = new List<string>
                 {
@@ -69,11 +69,12 @@ namespace ProgramStaden
         static void Main(string[] args)
         {
             int CountTime = 0;
+
             List<Prison> Prison = new List<Prison>();
             StadenSimulering simulation = new StadenSimulering();
             Staden staden = new Staden();
             List<Program.Personer> personers = staden.City();
-
+            List<Fattighuset> fattighusets = new List<Fattighuset>();
             SkrivaUtFängelse skrivaUtFängelse = new SkrivaUtFängelse();
 
             NewFeeds newFeeds = new NewFeeds();
@@ -89,17 +90,19 @@ namespace ProgramStaden
                 simulation.LäggTillPersoner(personers);
                 simulation.Utskrift();
 
-                ArrestSimulering.FindTheThiv(personers, Prison, CountTime , newFeeds);
-                ReleasedSimulering.Released(Prison, personers, CountTime , newFeeds);
+                ArrestSimulering.FindTheThiv(personers, Prison, CountTime, newFeeds);
+                ReleasedSimulering.Released(Prison, personers, CountTime, newFeeds);
                 StoldSimulering.FindTheft(personers);
+                FattighusSimulering.FlyttaTillFattighuset(personers, fattighusets);
+                FattighusSimulering.Simulera(fattighusets);
                 newFeeds.SkrevUtNews();
                 AntalPersoner.antalPersoner(personers, Prison);
 
                 skrivaUtFängelse.Uppdate(Prison);
-                
 
-                
-                
+
+
+
 
             }
 
