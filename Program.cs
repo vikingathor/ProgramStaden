@@ -68,6 +68,7 @@ namespace ProgramStaden
         }
         static void Main(string[] args)
         {
+            Console.SetBufferSize(160, 50);
             int CountTime = 0;
 
             List<Prison> Prison = new List<Prison>();
@@ -92,7 +93,7 @@ namespace ProgramStaden
 
                 ArrestSimulering.FindTheThiv(personers, Prison, CountTime, newFeeds);
                 ReleasedSimulering.Released(Prison, personers, CountTime, newFeeds);
-                StoldSimulering.FindTheft(personers);
+                StoldSimulering.FindTheft(personers, newFeeds);
                 FattighusSimulering.FlyttaTillFattighuset(personers, fattighusets);
                 FattighusSimulering.Simulera(fattighusets);
                 newFeeds.SkrevUtNews();

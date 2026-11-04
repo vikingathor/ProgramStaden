@@ -6,12 +6,14 @@ namespace ProgramStaden
 {
     internal class StoldSimulering
     {
-        public static void FindTheft(List<Program.Personer> personer)
+        public static void FindTheft(
+            List<Program.Personer> personer,
+            NewFeeds newFeeds)
         {
             // Gå igenom alla personer i staden
             foreach (var t in personer)
             {
-                // kolla om personen är en tjuv
+                // Kolla om personen är en tjuv
                 if (t is Program.Tjuv tjuv)
                 {
                     // Leta efter medborgare
@@ -19,7 +21,7 @@ namespace ProgramStaden
                     {
                         if (m is Program.Medborgare medborgare)
                         {
-                            // kolla om de möts
+                            // Kolla om de möts
                             if (tjuv.Posx == medborgare.Posx &&
                                 tjuv.PosY == medborgare.PosY)
                             {
@@ -38,17 +40,17 @@ namespace ProgramStaden
                                     // Lägg saken hos tjuven
                                     tjuv.Inventory.Add(sak);
 
-                                    // Skriv ut händelsen
-                                    Console.WriteLine(
+                                    // Skicka händelsen till NewFeeds
+                                    newFeeds.AddNews(
                                         tjuv.Name + " stal " + sak +
                                         " från " + medborgare.Name);
 
-                                    // kolla om medborgaren är utan saker
+                                    // Kolla om medborgaren är utan saker
                                     if (medborgare.Inventory.Count == 0)
                                     {
-                                        Console.WriteLine(
+                                        newFeeds.AddNews(
                                             medborgare.Name +
-                                            " Nu har förlorat alla sina saker och ska till fattighuset.");
+                                            " har förlorat alla sina saker och ska till fattighuset.");
                                     }
                                 }
                             }
@@ -59,4 +61,3 @@ namespace ProgramStaden
         }
     }
 }
-
