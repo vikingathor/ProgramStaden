@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ProgramStaden
 {
@@ -67,15 +68,20 @@ namespace ProgramStaden
         }
         static void Main(string[] args)
         {
-            
+            int CountTime = 0;
             List<Prison> Prison = new List<Prison>();
             StadenSimulering simulation = new StadenSimulering();
             Staden staden = new Staden();
             List<Program.Personer> personers = staden.City();
-            
 
-            while(true)
+            SkrivaUtFängelse skrivaUtFängelse = new SkrivaUtFängelse();
+
+            NewFeeds newFeeds = new NewFeeds();
+
+
+            while (true)
             {
+                CountTime++;
                 Thread.Sleep(1000);
                 Console.Clear();
 
@@ -83,8 +89,17 @@ namespace ProgramStaden
                 simulation.LäggTillPersoner(personers);
                 simulation.Utskrift();
 
-                ArrestSimulering.FindTheThiv(personers, Prison);
-                ReleasedSimulering.Released(Prison, personers);
+                ArrestSimulering.FindTheThiv(personers, Prison, CountTime , newFeeds);
+                ReleasedSimulering.Released(Prison, personers, CountTime , newFeeds);
+                StoldSimulering.FindTheft(personers);
+                newFeeds.SkrevUtNews();
+                AntalPersoner.antalPersoner(personers, Prison);
+
+                skrivaUtFängelse.Uppdate(Prison);
+                
+
+                
+                
 
             }
 
