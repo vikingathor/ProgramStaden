@@ -68,21 +68,21 @@ namespace ProgramStaden
         }
         static void Main(string[] args)
         {
-            int CountTime = 0;
+            int SimulationTime = 0;
 
             List<Prison> Prison = new List<Prison>();
             StadenSimulering simulation = new StadenSimulering();
             Staden staden = new Staden();
             List<Program.Personer> personers = staden.City();
             List<Fattighuset> fattighusets = new List<Fattighuset>();
-            SkrivaUtFängelse skrivaUtFängelse = new SkrivaUtFängelse();
+            PrisonSimulation prisonSimulation = new PrisonSimulation();
 
             NewFeeds newFeeds = new NewFeeds();
 
 
             while (true)
             {
-                CountTime++;
+                SimulationTime++;
                 Thread.Sleep(1000);
                 Console.Clear();
 
@@ -90,15 +90,15 @@ namespace ProgramStaden
                 simulation.LäggTillPersoner(personers);
                 simulation.Utskrift();
 
-                ArrestSimulering.FindTheThiv(personers, Prison, CountTime, newFeeds);
-                ReleasedSimulering.Released(Prison, personers, CountTime, newFeeds);
+                ArrestSimulering.FindTheThiv(personers, Prison, SimulationTime, newFeeds);
+                ReleasedSimulering.Released(Prison, personers, SimulationTime, newFeeds);
                 StoldSimulering.FindTheft(personers);
                 FattighusSimulering.FlyttaTillFattighuset(personers, fattighusets);
                 FattighusSimulering.Simulera(fattighusets);
                 newFeeds.SkrevUtNews();
                 AntalPersoner.antalPersoner(personers, Prison);
 
-                skrivaUtFängelse.Uppdate(Prison);
+                prisonSimulation.Uppdate(Prison);
 
 
 
