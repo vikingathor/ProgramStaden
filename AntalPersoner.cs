@@ -12,9 +12,9 @@ namespace ProgramStaden
             int AntalMedborgare = 0;
             int AntalTjuvar = 0;
             int AntalPoliser = 0;
-            int AntalFångar = 0;
+            int AntalGripna = 0;
             int AntalFattiga = 0;
-
+            int AntalRånadeMedborgare = 0;
             foreach (var M in personers)
             {
                 if(M is Program.Medborgare)
@@ -29,11 +29,14 @@ namespace ProgramStaden
                 {
                     AntalTjuvar++;
                 }
-                
+                if (M is Program.Medborgare && ((Program.Medborgare)M).Inventory.Count < 4)
+                {
+                    AntalRånadeMedborgare++;
+                }
 
             }
             AntalFattiga =  fattighusets.Count();
-            AntalFångar = prisons.Count();
+            AntalGripna = prisons.Count();
 
            
 
@@ -47,9 +50,12 @@ namespace ProgramStaden
             Console.SetCursorPosition(105, 15);
             Console.Write("Antal Tjuvar : " + AntalTjuvar);
             Console.SetCursorPosition(105, 16);
-            Console.Write("Antal Fångar : " + AntalFångar);
+            Console.Write("Antal gripna tjuvar : " + AntalGripna);
             Console.SetCursorPosition(105, 17);
             Console.Write("Antal Fattiga : " + AntalFattiga);
+            Console.SetCursorPosition(105, 17);
+            Console.Write("Antal rånade medborgare : " + AntalRånadeMedborgare);
+
 
         }
     }
