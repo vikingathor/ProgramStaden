@@ -106,7 +106,7 @@ namespace ProgramStaden
         public void KonstrolleraPositioner(Prison prison)
         {
             if (prison.PosX >= 66)
-                prison.PosX = 55;
+                prison.PosX = 56;
 
             if (prison.PosX < 55)
                 prison.PosX = 65;
