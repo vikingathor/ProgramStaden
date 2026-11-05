@@ -92,7 +92,7 @@ namespace ProgramStaden
 
                 ArrestSimulering.FindTheThiv(personers, Prison, SimulationTime, newFeeds);
                 ReleasedSimulering.Released(Prison, personers, SimulationTime, newFeeds);
-                StoldSimulering.FindTheft(personers);
+                StoldSimulering.FindTheft(personers, newFeeds);
                 FattighusSimulering.FlyttaTillFattighuset(personers, fattighusets);
                 FattighusSimulering.Simulera(fattighusets);
                 newFeeds.SkrevUtNews();
