@@ -96,7 +96,7 @@ namespace ProgramStaden
                 FattighusSimulering.FlyttaTillFattighuset(personers, fattighusets);
                 FattighusSimulering.Simulera(fattighusets);
                 newFeeds.SkrevUtNews();
-                AntalPersoner.antalPersoner(personers, Prison);
+                AntalPersoner.antalPersoner(personers, Prison,fattighusets);
 
                 skrivaUtFängelse.Uppdate(Prison);
 
