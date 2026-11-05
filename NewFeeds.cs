@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,6 +8,7 @@ namespace ProgramStaden
     internal class NewFeeds
     {
         public Stack<string> News { get; set; }
+
         public NewFeeds()
         {
             News = new Stack<string>();
@@ -24,28 +26,49 @@ namespace ProgramStaden
                 }
 
                 News.Pop();
-                
-                for(int i = 0; i  < 4; i++)
+
+                for (int i = 0; i < 4; i++)
                 {
                     News.Push(NewsTemp.Pop());
                 }
-
-
             }
-            News.Push(Meddelande);
 
+            News.Push(Meddelande);
         }
 
         public void SkrevUtNews()
         {
-            Console.SetCursorPosition(105, 5);
+            int X = 105;
+            int Y = 5;
+            int maxLength = 54;
+
+            Console.SetCursorPosition(X, Y);
             Console.Write("New Feeds");
-            int y = 6;
+
+            int y = Y + 1;
+
             foreach (var N in News)
             {
-                Console.SetCursorPosition(105,y);
+                string meddelande = N ?? "";
+
+                // Ta bort radbrytningar i meddelandet
+                meddelande = meddelande.Replace("\r", " ")
+                                       .Replace("\n", " ");
+
+                // Förkorta långa meddelanden
+                // så att de inte hamnar över stadskartan
+                if (meddelande.Length > maxLength)
+                {
+                    meddelande = meddelande.Substring(
+                        0, maxLength - 3) + "...";
+                }
+
+                Console.SetCursorPosition(X, y);
+
+                // Skriv utan att gå till nästa rad
+                Console.Write(meddelande.PadRight(maxLength));
+
                 y++;
-                Console.WriteLine(N);
             }
         }
     }
