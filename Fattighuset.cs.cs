@@ -150,8 +150,7 @@ namespace ProgramStaden
 
             Console.WriteLine("+" + new string('-', Width) + "+");
 
-            Console.WriteLine(
-                "Antal personer i Fattighuset: " + fattighus.Count);
+            
         }
         public static void Simulera(List<Fattighuset> fattighus)
         {

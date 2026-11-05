@@ -4,11 +4,11 @@ using System.Text;
 
 namespace ProgramStaden
 {
-    internal class SkrivaUtFängelse
+    internal class PrisonSimulation
     {
         public int Width { get; set; }
         public int Hight { get; set; }
-        public SkrivaUtFängelse()
+        public PrisonSimulation()
         {
             Width = 12;
             Hight = 12;
