@@ -6,7 +6,7 @@ namespace ProgramStaden
 {
     internal class ArrestSimulering
     {
-         public static void FindTheThiv(List<Program.Personer> personers , List<Prison> prison , int CountTime , NewFeeds newFeeds)
+         public static void FindTheThiv(List<Program.Personer> personers , List<Prison> prison , int SimulationTime, NewFeeds newFeeds)
          {
          
             for (int i = personers.Count - 1; i >= 0; i--)
@@ -23,7 +23,7 @@ namespace ProgramStaden
                             {
                                 ((Program.Polis)P).Inventory.AddRange(thief.Inventory);
 
-                                int StraffTid = (thief.Inventory.Count * 10) + CountTime;
+                                int StraffTid = (thief.Inventory.Count * 10) + SimulationTime;
 
                                 prison.Add(new Prison(T.Name, StraffTid));
                                 //Console.WriteLine(P.Name + " Fångad " + thief.Name + " och ska till fängelse ");
