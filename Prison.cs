@@ -18,7 +18,7 @@ namespace ProgramStaden
 
             Name = name;
             PosX = Random.Shared.Next(56, 67);
-            PosY = Random.Shared.Next(27, 38);
+            PosY = Random.Shared.Next(27, 37);
             StraffTid = straffTid;
             Type = 'F';
             Where = Random.Shared.Next(0, 8);
