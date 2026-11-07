@@ -26,7 +26,6 @@ namespace ProgramStaden
                                 int StraffTid = (thief.Inventory.Count * 10) + SimulationTime;
 
                                 prison.Add(new Prison(T.Name, StraffTid));
-                                //Console.WriteLine(P.Name + " Fångad " + thief.Name + " och ska till fängelse ");
                                 newFeeds.AddNews(P.Name + " Fångade " + thief.Name + " och skickade till fängelse ");
                                 personers.RemoveAt(i);
                                 break;

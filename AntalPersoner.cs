@@ -7,13 +7,14 @@ namespace ProgramStaden
     internal class AntalPersoner
     {
 
-        public  static void antalPersoner(List<Program.Personer>personers , List<Prison> prisons )
+        public  static void antalPersoner(List<Program.Personer>personers , List<Prison> prisons , List<Fattighuset> fattighusets)
         {
             int AntalMedborgare = 0;
             int AntalTjuvar = 0;
             int AntalPoliser = 0;
             int AntalFångar = 0;
-
+            int AntalRånadeMedborgare = 0;
+            int AntalFattighus = 0;
             foreach (var M in personers)
             {
                 if(M is Program.Medborgare)
@@ -30,10 +31,20 @@ namespace ProgramStaden
                 }
 
             }
-            foreach (var P in prisons)
+            foreach(var P in personers)
             {
-                AntalFångar++;
+                if(P is Program.Medborgare medborgare)
+                {
+                    if (medborgare.Inventory.Count < 4)
+                    {
+                        AntalRånadeMedborgare++;
+                    }
+                }
             }
+             AntalFångar = prisons.Count;
+            AntalFattighus = fattighusets.Count;
+
+
 
             Console.SetCursorPosition(105,12);
             Console.Write("Antal ");
@@ -44,7 +55,11 @@ namespace ProgramStaden
             Console.SetCursorPosition(105, 15);
             Console.Write("Antal Tjuvar : " + AntalTjuvar);
             Console.SetCursorPosition(105, 16);
-            Console.Write("Antal Fångar : " + AntalFångar);
+            Console.Write("Antal gripna tjuvar: " + AntalFångar);
+            Console.SetCursorPosition(105, 17);
+            Console.Write("Antal rånade medborgare: " + AntalRånadeMedborgare);
+            Console.SetCursorPosition(105, 18);
+            Console.WriteLine("Antal Fattiga: " + AntalFattighus);
 
         }
     }
