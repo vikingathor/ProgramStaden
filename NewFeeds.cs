@@ -51,12 +51,8 @@ namespace ProgramStaden
             {
                 string meddelande = N ?? "";
 
-                // Ta bort radbrytningar i meddelandet
                 meddelande = meddelande.Replace("\r", " ")
                                        .Replace("\n", " ");
-
-                // Förkorta långa meddelanden
-                // så att de inte hamnar över stadskartan
                 if (meddelande.Length > maxLength)
                 {
                     meddelande = meddelande.Substring(
@@ -65,7 +61,6 @@ namespace ProgramStaden
 
                 Console.SetCursorPosition(X, y);
 
-                // Skriv utan att gå till nästa rad
                 Console.Write(meddelande.PadRight(maxLength));
 
                 y++;
